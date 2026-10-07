@@ -35,7 +35,7 @@ export default function HomePage() {
       {/* Footer */}
       <footer className="border-t border-scene-border">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 py-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-scene-muted text-sm">
-          <p>© 2026 Scene, a <a href="https://studioreturn.co" target="_blank" rel="noopener noreferrer" className="text-white hover:opacity-70 transition-opacity">Return</a> product :)</p>
+          <p>© 2026 Scene, a <a href="https://mostlywork.ing" target="_blank" rel="noopener noreferrer" className="text-white hover:opacity-70 transition-opacity">mostlywork.ing</a> product.</p>
           <Link
             href="/privacy"
             className="text-white hover:opacity-70 transition-opacity"
