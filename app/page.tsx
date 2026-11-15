@@ -1,5 +1,4 @@
 import Image from "next/image";
-import dynamic from "next/dynamic";
 import Nav from "@/components/Nav";
 import Hero from "@/components/Hero";
 import FeatureGrid from "@/components/FeatureGrid";
@@ -8,8 +7,9 @@ import Footer from "@/components/Footer";
 import JoinBetaButton from "@/components/JoinBetaButton";
 import Barcode from "@/components/kit/Barcode";
 import CtaObject from "@/components/mock/CtaObject";
+import CtaMap from "@/components/mock/CtaMap";
+import { VenueCornerMark } from "@/components/mock/VenueField";
 
-const BristolMap = dynamic(() => import("@/components/BristolMap"), { ssr: false });
 
 export default function HomePage() {
   return (
@@ -23,7 +23,7 @@ export default function HomePage() {
         {/* ── Final download CTA: the stub you keep ── */}
         <section className="px-3 pt-28 sm:px-4 sm:pt-40">
           <div className="reveal relative overflow-hidden rounded-card bg-scene-surface ring-1 ring-white/5">
-            <BristolMap />
+            <CtaMap />
             {/* Fade the map out towards the top so the copy stays legible */}
             <div
               aria-hidden="true"
@@ -61,7 +61,10 @@ export default function HomePage() {
               </span>
             </div>
 
-            <div className="relative flex flex-col items-center px-6 pb-0 pt-32 text-center sm:pt-44" style={{ zIndex: 2 }}>
+            {/* Corner mark, like the print on a passport stamp */}
+            <VenueCornerMark className="z-[2]" />
+
+            <div className="pointer-events-none relative flex flex-col items-center px-6 pb-0 pt-32 text-center sm:pt-44" style={{ zIndex: 2 }}>
               <span className="flex size-20 items-center justify-center rounded-[22px] bg-scene-surface-2 ring-1 ring-white/10 shadow-[0_16px_40px_-16px_rgba(0,0,0,0.8)]">
                 <Image src="/scene-logo.svg" alt="" width={38} height={42} />
               </span>
@@ -75,10 +78,12 @@ export default function HomePage() {
 
               <JoinBetaButton
                 heroCta
-                className="btn btn-primary mt-9 h-14 px-8 text-[17px]"
+                className="btn btn-primary pointer-events-auto mt-9 h-14 px-8 text-[17px]"
               />
 
-              <CtaObject />
+              <div className="pointer-events-auto">
+                <CtaObject />
+              </div>
             </div>
           </div>
         </section>
