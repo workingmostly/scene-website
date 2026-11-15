@@ -1,7 +1,16 @@
+import type { ReactNode } from "react";
 import type { SceneGig } from "@/lib/types";
 
 interface GigStubProps {
   gig: SceneGig;
+  /**
+   * Colour painted into the notches and the perforation, i.e. the surface the
+   * stub sits on. The profile page sits on black; a mockup inside a #121214
+   * card passes that colour.
+   */
+  notchColor?: string;
+  /** Rendered in place of the star rating, e.g. an interactive rating control. */
+  starsSlot?: ReactNode;
 }
 
 function formatDate(dateStr: string): string {
@@ -48,7 +57,7 @@ const BARCODE_TOTAL_H = _y;
 const STUB_W = 44;
 const NOTCH_D = 18;
 
-export default function GigStub({ gig }: GigStubProps) {
+export default function GigStub({ gig, notchColor = "#000000", starsSlot }: GigStubProps) {
   return (
     <div
       className="relative rounded-2xl"
@@ -58,7 +67,7 @@ export default function GigStub({ gig }: GigStubProps) {
       <div
         className="absolute rounded-full z-10 pointer-events-none"
         style={{
-          width: NOTCH_D, height: NOTCH_D, backgroundColor: "#000000",
+          width: NOTCH_D, height: NOTCH_D, backgroundColor: notchColor,
           top: 0, right: STUB_W,
           transform: "translateX(50%) translateY(-50%)",
         }}
@@ -66,7 +75,7 @@ export default function GigStub({ gig }: GigStubProps) {
       <div
         className="absolute rounded-full z-10 pointer-events-none"
         style={{
-          width: NOTCH_D, height: NOTCH_D, backgroundColor: "#000000",
+          width: NOTCH_D, height: NOTCH_D, backgroundColor: notchColor,
           bottom: 0, right: STUB_W,
           transform: "translateX(50%) translateY(50%)",
         }}
@@ -116,10 +125,14 @@ export default function GigStub({ gig }: GigStubProps) {
               <path d="M19 4h-1V2h-2v2H8V2H6v2H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2zm0 16H5V10h14v10zm0-12H5V6h14v2z" />
             </svg>
             <span className="text-[#8E8E93] text-xs">{formatDate(gig.date)}</span>
-            {gig.rating !== undefined && (
-              <div className="ml-1">
-                <StarRating rating={gig.rating} />
-              </div>
+            {starsSlot !== undefined ? (
+              <div className="ml-1 flex flex-1 items-center min-w-0">{starsSlot}</div>
+            ) : (
+              gig.rating !== undefined && (
+                <div className="ml-1">
+                  <StarRating rating={gig.rating} />
+                </div>
+              )
             )}
           </div>
         </div>
@@ -136,7 +149,7 @@ export default function GigStub({ gig }: GigStubProps) {
               left: 0,
               width: 1,
               background:
-                "repeating-linear-gradient(to bottom, #000000 0px, #000000 4px, transparent 4px, transparent 9px)",
+                `repeating-linear-gradient(to bottom, ${notchColor} 0px, ${notchColor} 4px, transparent 4px, transparent 9px)`,
             }}
           />
           {/* Music note */}

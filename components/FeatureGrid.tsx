@@ -1,125 +1,75 @@
+import FriendsCalendar from "./mock/FriendsCalendar";
+import TicketScanner from "./mock/TicketScanner";
+import StubCollection from "./mock/StubCollection";
+
 const features = [
   {
     tag: "Bring your friends",
     title: "All your gigs in one place.",
     description:
       "No more \"Where did that ticket go?\". Keep them all in one shared calendar with your friends. It even syncs with Google Calendar.",
-    screenshot: "/screenshots/home.png",
-    alt: "Scene app — My Gigs calendar view",
   },
   {
     tag: "Add Tickets",
     title: "No need to add them yourself.",
     description:
       "Scan tickets or import an email. Supports DICE, Ticketmaster, SeeTickets, Headfirst and more.",
-    screenshot: "/screenshots/add-gig.png",
-    alt: "Scene app — add a gig",
   },
   {
     tag: "Collect Stubs",
     title: "Remember every show.",
     description:
       "Collect tickets, review shows and share it all with your friends.",
-    screenshot: "/screenshots/profile.png",
-    alt: "Scene app — profile",
   },
 ];
 
-function Phone({
-  src,
-  alt,
-  width,
-  rotate = 0,
-}: {
-  src: string;
-  alt: string;
-  width: number;
-  rotate?: number;
-}) {
+function Copy({ f, size = "md" }: { f: (typeof features)[number]; size?: "lg" | "md" }) {
   return (
-    // eslint-disable-next-line @next/next/no-img-element
-    <img
-      src={src}
-      alt={alt}
-      draggable={false}
-      style={{
-        width,
-        maxWidth: "80vw",
-        height: "auto",
-        display: "block",
-        transform: rotate ? `rotate(${rotate}deg)` : undefined,
-        filter: "drop-shadow(0 30px 50px rgba(0,0,0,0.6))",
-      }}
-    />
+    <div className="reveal-child" style={{ ["--i" as string]: 0 }}>
+      <p className="eyebrow text-scene-accent">{f.tag}</p>
+      <h3 className={`display mt-4 text-white ${size === "lg" ? "text-[2.1rem] sm:text-[2.6rem]" : "text-[2rem] sm:text-[2.25rem]"}`}>
+        {f.title}
+      </h3>
+      <p className="mt-4 max-w-md text-[17px] leading-relaxed text-scene-muted">{f.description}</p>
+    </div>
   );
 }
 
 export default function FeatureGrid() {
-  const [lead, ...rest] = features;
+  const [friends, tickets, stubs] = features;
 
   return (
-    <section
-      id="features"
-      className="px-3 pt-10 sm:px-4 sm:pt-16"
-      style={{ scrollMarginTop: "96px" }}
-    >
+    <section id="features" className="px-3 pt-10 sm:px-4 sm:pt-16" style={{ scrollMarginTop: "96px" }}>
       <div className="grid gap-3 sm:gap-4 md:grid-cols-2">
-        {/* ── Lead card: text left, phone right ── */}
+        {/* ── Lead card: copy left, the shared calendar right ── */}
         <article className="reveal grid overflow-hidden rounded-card bg-scene-surface md:col-span-2 md:grid-cols-2">
-          <div className="flex flex-col justify-center p-8 pb-4 sm:p-11 md:pb-11">
-            <p className="eyebrow text-scene-accent">{lead.tag}</p>
-            <h3 className="display mt-4 text-[2.1rem] text-white sm:text-[2.6rem]">
-              {lead.title}
-            </h3>
-            <p className="mt-4 max-w-md text-[17px] leading-relaxed text-scene-muted">
-              {lead.description}
-            </p>
+          <div className="flex flex-col justify-center p-8 pb-2 sm:p-11 md:pb-11">
+            <Copy f={friends} size="lg" />
           </div>
-          <div className="relative flex items-start justify-center px-6 pt-8 sm:px-10 sm:pt-12">
-            <div
-              aria-hidden="true"
-              className="pointer-events-none absolute inset-0"
-              style={{
-                background:
-                  "radial-gradient(ellipse 60% 50% at 50% 70%, rgba(255,255,255,0.05) 0%, transparent 70%)",
-              }}
-            />
-            <div className="relative" style={{ height: 470, overflow: "hidden" }}>
-              <Phone src={lead.screenshot} alt={lead.alt} width={280} />
-            </div>
+          <div className="reveal-child flex items-center justify-center px-6 py-8 sm:px-10 sm:py-14" style={{ ["--i" as string]: 1 }}>
+            <FriendsCalendar />
           </div>
         </article>
 
-        {/* ── Two stacked cards: text on top, phone below ── */}
-        {rest.map((f) => (
-          <article
-            key={f.tag}
-            className="reveal flex flex-col overflow-hidden rounded-card bg-scene-surface"
-          >
-            <div className="p-8 pb-4 sm:p-11 sm:pb-6">
-              <p className="eyebrow text-scene-accent">{f.tag}</p>
-              <h3 className="display mt-4 text-[2rem] text-white sm:text-[2.25rem]">
-                {f.title}
-              </h3>
-              <p className="mt-4 max-w-md text-[17px] leading-relaxed text-scene-muted">
-                {f.description}
-              </p>
-            </div>
-            <div className="relative mt-auto flex justify-center px-6 pt-4 sm:px-10">
-              <div
-                aria-hidden="true"
-                className="pointer-events-none absolute inset-0"
-                style={{
-                  background:
-                    "radial-gradient(ellipse 60% 50% at 50% 80%, rgba(255,255,255,0.05) 0%, transparent 70%)",
-                }}
-              />
-              <div className="relative" style={{ height: 450, overflow: "hidden" }}>
-                <Phone src={f.screenshot} alt={f.alt} width={270} />
-              </div>
-            </div>
-          </article>
-        ))}
+        {/* ── Add tickets: the email reads itself ── */}
+        <article className="reveal flex flex-col overflow-hidden rounded-card bg-scene-surface">
+          <div className="p-8 pb-4 sm:p-11 sm:pb-6">
+            <Copy f={tickets} />
+          </div>
+          <div className="reveal-child px-6 pb-8 sm:px-11 sm:pb-12" style={{ ["--i" as string]: 1 }}>
+            <TicketScanner />
+          </div>
+        </article>
+
+        {/* ── Collect stubs: stamp to rate ── */}
+        <article className="reveal flex flex-col overflow-hidden rounded-card bg-scene-surface">
+          <div className="p-8 pb-4 sm:p-11 sm:pb-6">
+            <Copy f={stubs} />
+          </div>
+          <div className="reveal-child px-6 pb-8 sm:px-11 sm:pb-12" style={{ ["--i" as string]: 1 }}>
+            <StubCollection />
+          </div>
+        </article>
       </div>
     </section>
   );
