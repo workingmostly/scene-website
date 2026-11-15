@@ -3,17 +3,20 @@ import type { CSSProperties } from "react";
 interface ProviderChipProps {
   name: string;
   active?: boolean;
+  /** Toggle-button semantics: rendered as aria-pressed when clickable. */
+  pressed?: boolean;
   className?: string;
   style?: CSSProperties;
   onClick?: () => void;
 }
 
 /** Plain-text provider pill with a circled initial (never a logo). */
-export default function ProviderChip({ name, active = false, className = "", style, onClick }: ProviderChipProps) {
+export default function ProviderChip({ name, active = false, pressed, className = "", style, onClick }: ProviderChipProps) {
   const Tag = onClick ? "button" : "span";
   return (
     <Tag
       type={onClick ? "button" : undefined}
+      aria-pressed={onClick && pressed !== undefined ? pressed : undefined}
       onClick={onClick}
       className={className}
       style={{
