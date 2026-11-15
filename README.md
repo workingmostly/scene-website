@@ -145,9 +145,12 @@ components/
 
 | Token | Value |
 |---|---|
-| Background | `#0A0A0A` |
-| Surface | `#1A1A1A` |
-| Accent | `#C8F53A` |
-| Muted text | `#737373` |
-| Border | `#333333` |
-| Font | Inter (via `next/font/google`) |
+| Background | `#000000` |
+| Section surface | `#121214` |
+| Inner surface | `#1C1C1E` |
+| Accent | `#FFD300` (eyebrows, highlights) |
+| Muted text | `#8E8E93` |
+| Faint text | `#636366` |
+| Section radius | `2.5rem` |
+| Body font | Inter (via `next/font/google`) |
+| Display font | Inter Tight, weight 600, `-0.04em` tracking |

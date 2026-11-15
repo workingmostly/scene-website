@@ -1,11 +1,41 @@
+import Image from "next/image";
+import dynamic from "next/dynamic";
 import Nav from "@/components/Nav";
 import Hero from "@/components/Hero";
 import FeatureGrid from "@/components/FeatureGrid";
 import Ticker from "@/components/Ticker";
+import Footer from "@/components/Footer";
 import JoinBetaButton from "@/components/JoinBetaButton";
-import Link from "next/link";
-import dynamic from "next/dynamic";
+
 const BristolMap = dynamic(() => import("@/components/BristolMap"), { ssr: false });
+
+function Phone({
+  src,
+  alt,
+  width,
+  rotate = 0,
+}: {
+  src: string;
+  alt: string;
+  width: number;
+  rotate?: number;
+}) {
+  return (
+    // eslint-disable-next-line @next/next/no-img-element
+    <img
+      src={src}
+      alt={alt}
+      draggable={false}
+      style={{
+        width,
+        height: "auto",
+        display: "block",
+        transform: rotate ? `rotate(${rotate}deg)` : undefined,
+        filter: "drop-shadow(0 30px 50px rgba(0,0,0,0.7))",
+      }}
+    />
+  );
+}
 
 export default function HomePage() {
   return (
@@ -16,34 +46,71 @@ export default function HomePage() {
         <Ticker />
         <FeatureGrid />
 
-        {/* Final download CTA */}
-        <section className="relative border-t border-scene-border overflow-hidden">
-          <BristolMap />
-          <div aria-hidden="true" className="absolute inset-0 pointer-events-none" style={{ background: "rgba(0,0,0,0.55)", zIndex: 1 }} />
-          <div className="relative max-w-6xl mx-auto px-4 sm:px-6 py-32 flex flex-col items-center text-center gap-6" style={{ zIndex: 2 }}>
-            <h2 className="text-4xl sm:text-5xl font-bold text-white tracking-tight leading-tight text-balance">
-              Download free.
-            </h2>
-            <p className="text-scene-muted text-base max-w-sm leading-relaxed">
-              Available now on TestFlight for iOS.
-            </p>
-            <JoinBetaButton className="mt-2 inline-flex items-center justify-center bg-white text-black font-semibold text-sm px-6 py-2.5 rounded-full hover:bg-white/90 active:scale-95 transition-all duration-150" />
+        {/* ── Final download CTA ── */}
+        <section className="px-3 pt-28 sm:px-4 sm:pt-40">
+          <div className="reveal relative overflow-hidden rounded-card bg-scene-surface ring-1 ring-white/5">
+            <BristolMap />
+            {/* Fade the map out towards the top so the copy stays legible */}
+            <div
+              aria-hidden="true"
+              className="pointer-events-none absolute inset-0"
+              style={{
+                zIndex: 1,
+                background:
+                  "linear-gradient(to bottom, #121214 0%, rgba(18,18,20,0.75) 45%, rgba(18,18,20,0.35) 100%)",
+              }}
+            />
+            <div
+              aria-hidden="true"
+              className="pointer-events-none absolute inset-0"
+              style={{
+                zIndex: 1,
+                background:
+                  "radial-gradient(ellipse 50% 40% at 50% 100%, rgba(255,211,0,0.10) 0%, transparent 70%)",
+              }}
+            />
+
+            <div className="relative flex flex-col items-center px-6 pt-16 text-center sm:pt-24" style={{ zIndex: 2 }}>
+              <span className="flex size-20 items-center justify-center rounded-[22px] bg-scene-surface-2 ring-1 ring-white/10 shadow-[0_16px_40px_-16px_rgba(0,0,0,0.8)]">
+                <Image src="/scene-logo.svg" alt="" width={38} height={42} />
+              </span>
+
+              <h2 className="display mt-8 text-[clamp(2.6rem,6.4vw,4.75rem)] text-white">
+                Download free.
+              </h2>
+              <p className="mx-auto mt-6 max-w-lg text-lg text-white/60 sm:text-xl">
+                Available now on TestFlight for iOS.
+              </p>
+
+              <JoinBetaButton
+                heroCta
+                className="btn btn-primary mt-9 h-14 px-8 text-[17px]"
+              />
+
+              {/* Three phones fanned out and cropped at the bottom edge */}
+              <div
+                className="relative mt-14 flex w-full items-start justify-center sm:mt-20"
+                style={{ height: 300, overflow: "hidden" }}
+                aria-hidden="true"
+              >
+                <div className="relative" style={{ width: 760, maxWidth: "140vw" }}>
+                  <div className="absolute left-1/2" style={{ top: 70, marginLeft: -330, transform: "rotate(-9deg)", opacity: 0.85 }}>
+                    <Phone src="/screenshots/profile.png" alt="" width={230} />
+                  </div>
+                  <div className="absolute left-1/2" style={{ top: 70, marginLeft: 100, transform: "rotate(9deg)", opacity: 0.85 }}>
+                    <Phone src="/screenshots/add-gig.png" alt="" width={230} />
+                  </div>
+                  <div className="absolute left-1/2" style={{ top: 0, marginLeft: -135, zIndex: 1 }}>
+                    <Phone src="/screenshots/home.png" alt="" width={270} />
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </section>
       </main>
 
-      {/* Footer */}
-      <footer className="border-t border-scene-border">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 py-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-scene-muted text-sm">
-          <p>© 2026 Scene, a <a href="https://mostlywork.ing" target="_blank" rel="noopener noreferrer" className="text-white hover:opacity-70 transition-opacity">mostlywork.ing</a> product.</p>
-          <Link
-            href="/privacy"
-            className="text-white hover:opacity-70 transition-opacity"
-          >
-            Privacy Policy
-          </Link>
-        </div>
-      </footer>
+      <Footer />
     </>
   );
 }

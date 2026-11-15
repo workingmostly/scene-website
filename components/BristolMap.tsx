@@ -30,9 +30,9 @@ export default function BristolMap() {
         if (layer.type === "symbol") {
           map.removeLayer(layer.id);
         } else if (layer.type === "background") {
-          map.setPaintProperty(layer.id, "background-color", "#000000");
+          map.setPaintProperty(layer.id, "background-color", "#121214");
         } else if (layer.type === "fill" && !layer.id.includes("water")) {
-          map.setPaintProperty(layer.id, "fill-color", "#000000");
+          map.setPaintProperty(layer.id, "fill-color", "#121214");
         }
       });
 

@@ -16,91 +16,99 @@ function PhoneShot({
       src={src}
       alt={alt}
       style={{ width, height: "auto", display: "block", flexShrink: 0 }}
+      draggable={false}
     />
   );
 }
 
 export default function Hero() {
   return (
-    <section className="relative overflow-hidden">
-      {/* Subtle radial glow */}
-      <div
-        aria-hidden="true"
-        className="absolute inset-0 pointer-events-none"
-        style={{
-          background:
-            "radial-gradient(ellipse 80% 60% at 70% 50%, rgba(255,255,255,0.035) 0%, transparent 70%)",
-        }}
-      />
+    <section className="px-3 pt-24 sm:px-4 sm:pt-4">
+      <div className="relative overflow-hidden rounded-card bg-scene-surface">
+        {/* Warm glow behind the phones */}
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-0"
+          style={{
+            background:
+              "radial-gradient(ellipse 45% 55% at 78% 55%, rgba(255,211,0,0.10) 0%, rgba(255,255,255,0.03) 45%, transparent 75%)",
+          }}
+        />
 
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 pt-20 pb-24 flex flex-col lg:flex-row items-center gap-12 lg:gap-16">
-        {/* ── Copy ── */}
-        <div className="flex-1 text-center lg:text-left">
-          {/* TestFlight pill */}
-          <div className="inline-flex items-center gap-2 bg-scene-surface border border-scene-border rounded-xl pl-1 pr-3 py-1 mb-8">
-            <Image
-              src="/testflight.png"
-              alt="TestFlight"
-              width={22}
-              height={22}
-              className="flex-shrink-0"
-            />
-            <span className="text-white text-xs font-medium tracking-tight">
-              Available on TestFlight
-            </span>
+        <div className="relative mx-auto grid max-w-6xl items-center gap-12 px-6 pt-12 pb-14 sm:px-10 sm:pt-32 lg:grid-cols-[1.2fr_1fr] lg:gap-4 lg:pt-36 lg:pb-16">
+          {/* ── Copy ── */}
+          <div className="text-center lg:text-left">
+            <h1 className="display text-[clamp(2.9rem,6.6vw,5.25rem)] text-white">
+              The home of{" "}
+              <span className="text-white/60">live music.</span>
+            </h1>
+
+            <p className="mx-auto mt-6 max-w-[34rem] text-lg leading-relaxed text-scene-muted sm:text-xl lg:mx-0">
+              The shared calendar for all of your gigs. Import or scan tickets
+              automatically, collect stubs and review shows.
+            </p>
+
+            <div className="mt-9 flex flex-col items-center gap-4 sm:flex-row sm:justify-center lg:justify-start">
+              <JoinBetaButton
+                arrow
+                heroCta
+                className="btn btn-primary h-14 px-8 text-[17px]"
+              />
+              <span className="inline-flex items-center gap-2 text-sm text-scene-muted">
+                <Image
+                  src="/testflight.png"
+                  alt=""
+                  width={20}
+                  height={20}
+                  className="rounded-[5px]"
+                />
+                Available on TestFlight
+              </span>
+            </div>
           </div>
 
-          <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold text-white leading-[1.0] tracking-[-0.03em] text-balance">
-The home of
-                <br />
-                <span className="text-white/70">live music.</span>
-          </h1>
-
-          <p className="mt-6 text-base sm:text-lg text-scene-muted max-w-md mx-auto lg:mx-0 leading-relaxed">
-            The shared calendar for all of your gigs. Import or scan tickets automatically, collect stubs and review shows.
-          </p>
-
-          <div className="mt-10 flex justify-center lg:justify-start">
-            <JoinBetaButton className="inline-flex items-center justify-center bg-white text-black font-semibold text-sm px-6 py-2.5 rounded-full hover:bg-white/90 active:scale-95 transition-all duration-150" />
+          {/* ── Two staggered phones (desktop) ── */}
+          <div className="relative hidden lg:block" style={{ height: 560 }}>
+            <div
+              style={{
+                position: "absolute",
+                top: 40,
+                left: 0,
+                transform: "rotate(-7deg)",
+                zIndex: 0,
+                opacity: 0.7,
+              }}
+            >
+              <PhoneShot src="/screenshots/profile.png" alt="Scene — gig passport" width={230} />
+            </div>
+            <div
+              style={{
+                position: "absolute",
+                top: 0,
+                right: 0,
+                transform: "rotate(3deg)",
+                zIndex: 1,
+                filter: "drop-shadow(0 30px 50px rgba(0,0,0,0.6))",
+              }}
+            >
+              <PhoneShot src="/screenshots/home.png" alt="Scene — my gigs" width={260} />
+            </div>
           </div>
 
-        </div>
-
-        {/* ── Two staggered phones ── */}
-        {/* Desktop layout: absolute positioned, large */}
-        <div className="flex-shrink-0 relative hidden lg:block" style={{ width: 430, height: 570 }}>
-          <div
-            aria-hidden="true"
-            style={{
-              position: "absolute",
-              inset: -60,
-              background:
-                "radial-gradient(ellipse at center, rgba(255,255,255,0.06) 0%, transparent 65%)",
-              pointerEvents: "none",
-            }}
-          />
-          <div style={{ position: "absolute", top: 35, left: 10, transform: "rotate(-7deg)", zIndex: 0, opacity: 0.65 }}>
-            <PhoneShot src="/screenshots/profile.png" alt="Scene — gig passport" width={230} />
-          </div>
-          <div style={{ position: "absolute", top: 0, right: 0, transform: "rotate(3deg)", zIndex: 1 }}>
-            <PhoneShot src="/screenshots/home.png" alt="Scene — my gigs" width={260} />
-          </div>
-        </div>
-
-        {/* Mobile / tablet layout: two phones side by side */}
-        <div className="lg:hidden flex items-end justify-center gap-0 relative">
-          <div
-            aria-hidden="true"
-            className="absolute inset-0 pointer-events-none"
-            style={{
-              background: "radial-gradient(ellipse at center, rgba(255,255,255,0.06) 0%, transparent 70%)",
-            }}
-          />
-          <div style={{ transform: "rotate(-6deg)", zIndex: 0, opacity: 0.65, marginRight: -24 }}>
-            <PhoneShot src="/screenshots/profile.png" alt="Scene — gig passport" width={150} />
-          </div>
-          <div style={{ transform: "rotate(3deg)", zIndex: 1 }}>
-            <PhoneShot src="/screenshots/home.png" alt="Scene — my gigs" width={170} />
+          {/* ── Mobile / tablet: two phones side by side ── */}
+          <div className="relative flex items-end justify-center lg:hidden">
+            <div style={{ transform: "rotate(-6deg)", zIndex: 0, opacity: 0.7, marginRight: -24 }}>
+              <PhoneShot src="/screenshots/profile.png" alt="Scene — gig passport" width={150} />
+            </div>
+            <div
+              style={{
+                transform: "rotate(3deg)",
+                zIndex: 1,
+                filter: "drop-shadow(0 24px 40px rgba(0,0,0,0.6))",
+              }}
+            >
+              <PhoneShot src="/screenshots/home.png" alt="Scene — my gigs" width={170} />
+            </div>
           </div>
         </div>
       </div>

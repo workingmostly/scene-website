@@ -6,10 +6,9 @@ interface AppStoreButtonProps {
   className?: string;
 }
 
+/** Secondary (ghost) "Join the beta" button. */
 export default function AppStoreButton({ className = "" }: AppStoreButtonProps) {
   return (
-    <JoinBetaButton
-      className={`inline-flex items-center justify-center bg-scene-surface border border-scene-border text-white font-semibold text-sm px-5 py-2.5 rounded-full hover:bg-white/5 active:scale-95 transition-all duration-150 ${className}`}
-    />
+    <JoinBetaButton className={`btn btn-ghost h-12 px-6 text-[15px] ${className}`} />
   );
 }

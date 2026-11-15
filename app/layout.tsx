@@ -1,10 +1,18 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Inter, Inter_Tight } from "next/font/google";
 import "./globals.css";
+import RevealObserver from "@/components/RevealObserver";
 
 const inter = Inter({
   subsets: ["latin"],
   variable: "--font-inter",
+  display: "swap",
+});
+
+const interTight = Inter_Tight({
+  subsets: ["latin"],
+  weight: ["500", "600"],
+  variable: "--font-inter-tight",
   display: "swap",
 });
 
@@ -45,8 +53,20 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={inter.variable}>
+    <html
+      lang="en"
+      className={`${inter.variable} ${interTight.variable}`}
+      suppressHydrationWarning
+    >
       <body className="font-sans bg-scene-bg text-white antialiased">
+        {/* Marks the document as JS-enabled so reveal animations only hide
+            content when they can also show it again. */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: "document.documentElement.classList.add('js')",
+          }}
+        />
+        <RevealObserver />
         {children}
       </body>
     </html>

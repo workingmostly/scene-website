@@ -1,7 +1,7 @@
 export default function ProfileLoading() {
   return (
     <div className="min-h-screen bg-scene-bg flex flex-col items-center justify-start px-4 pt-16 pb-24">
-      <div className="w-full max-w-md bg-scene-surface border border-scene-border rounded-card-lg overflow-hidden shadow-2xl animate-pulse">
+      <div className="w-full max-w-md bg-scene-surface-2 ring-1 ring-white/5 rounded-card-sm overflow-hidden animate-pulse">
         {/* Header accent band */}
         <div className="h-2 bg-scene-border w-full" />
 
@@ -32,7 +32,7 @@ export default function ProfileLoading() {
             {[1, 2, 3].map((i) => (
               <div
                 key={i}
-                className="h-16 bg-scene-border rounded-card"
+                className="h-16 bg-scene-border rounded-2xl"
               />
             ))}
           </div>
