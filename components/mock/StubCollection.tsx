@@ -60,8 +60,8 @@ const PILE: {
   brightness: number;
   delay: number;
 }[] = [
-  { id: "foe", rating: 4, transform: "translate(0, -14px) rotate(2deg)", brightness: 0.8, delay: 280 },
-  { id: "toothache", rating: 5, transform: "translate(0, -7px) rotate(-1.5deg)", brightness: 0.9, delay: 370 },
+  { id: "foe", rating: 4, transform: "translate(6px, -22px) rotate(3deg)", brightness: 0.86, delay: 280 },
+  { id: "toothache", rating: 5, transform: "translate(-4px, -11px) rotate(-2deg)", brightness: 0.93, delay: 370 },
   { id: "drugchurch", brightness: 1, delay: 460 },
 ];
 const TOP = "drugchurch";
@@ -88,7 +88,7 @@ const CSS = `
 .stubs-histo { background: #1c1c1e; border-radius: 16px; padding: 12px; box-shadow: inset 0 0 0 1px rgba(255,255,255,0.08); }
 
 /* The pile: three stubs on top of each other, the back two peeking out. */
-.stubs-pile { position: relative; width: 100%; height: 136px; margin: 32px auto 0; }
+.stubs-pile { position: relative; width: 100%; height: 136px; margin: 56px auto 0; }
 .stubs-slot { position: absolute; left: 0; right: 0; top: 0; }
 .stubs-lift { transition: transform 160ms var(--ease-out); }
 @media (hover: hover) {
