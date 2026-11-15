@@ -166,6 +166,17 @@ body {
   transition: background-color 0.16s, transform 0.16s, visibility 0.45s;
 }
 
+/* ── Venue ticker ───────────────────────────────────────────────────────── */
+
+.ticker-name {
+  color: #8e8e93;
+  transition: color 160ms;
+}
+.ticker-name:hover,
+.ticker[data-held] .ticker-name {
+  color: #e5e5ea;
+}
+
 /* ── Reveal on scroll ───────────────────────────────────────────────────── */
 
 .js .reveal {
@@ -188,9 +199,137 @@ body {
   }
 }
 
-/* ── Marquee ────────────────────────────────────────────────────────────── */
 
-@keyframes marquee {
-  from { transform: translateX(0); }
-  to   { transform: translateX(-50%); }
+/* ── Motion system (shared by every hand-built mockup) ─────────────────── */
+
+:root {
+  --ease-out: cubic-bezier(0.2, 0.7, 0.2, 1);
+  --ease-pop: cubic-bezier(0.2, 0.8, 0.2, 1);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --paper: #f3f2ee;
+  --paper-ink: #0a0a0a;
+  --gold: #ffd300;
+}
+
+@keyframes row-in {
+  from { opacity: 0; transform: translateY(14px); }
+  to   { opacity: 1; transform: none; }
+}
+@keyframes fade-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+@keyframes pop-in {
+  from { opacity: 0; transform: scale(0.6); }
+  to   { opacity: 1; transform: scale(1); }
+}
+@keyframes stamp-in {
+  0%   { opacity: 0; transform: scale(1.7) rotate(-6deg); }
+  60%  { opacity: 1; transform: scale(0.94) rotate(1deg); }
+  100% { opacity: 1; transform: none; }
+}
+@keyframes grow-y {
+  from { transform: scaleY(0); }
+  to   { transform: scaleY(1); }
+}
+@keyframes grow-x {
+  from { transform: scaleX(0); }
+  to   { transform: scaleX(1); }
+}
+@keyframes scan-sweep {
+  from { transform: translateY(0); }
+  to   { transform: translateY(var(--sweep, 100%)); }
+}
+@keyframes hl-on {
+  from { background-color: rgba(255,255,255,0); color: inherit; }
+  to   { background-color: rgba(255,255,255,0.08); color: #fff; }
+}
+@keyframes fade-dim {
+  from { opacity: 1; }
+  to   { opacity: 0.3; }
+}
+@keyframes waveform {
+  0%, 100% { transform: scaleY(0.35); }
+  50%      { transform: scaleY(1); }
+}
+@keyframes breathe {
+  0%, 100% { opacity: 0.45; }
+  50%      { opacity: 0.9; }
+}
+
+/*
+ * Sequences: a container with `.seq` (observed like `.reveal`, so it gets
+ * `.is-visible` once on screen) plays its `.seq-item` children in order.
+ * Each item sets `--d` (delay) and optionally `--anim` (keyframe name) and
+ * `--dur`. Before the container is visible, items are hidden (JS only).
+ */
+.js .seq .seq-item {
+  opacity: 0;
+}
+.js .seq.is-visible .seq-item {
+  animation: var(--anim, row-in) var(--dur, 450ms) var(--ease-out) both;
+  animation-delay: var(--d, 0ms);
+}
+.js .seq.is-visible .seq-item.seq-pop {
+  animation-name: pop-in;
+  animation-timing-function: var(--ease-spring);
+  animation-duration: var(--dur, 260ms);
+}
+.js .seq.is-visible .seq-item.seq-stamp {
+  animation-name: stamp-in;
+  animation-timing-function: var(--ease-pop);
+  animation-duration: var(--dur, 220ms);
+}
+.js .seq.is-visible .seq-item.seq-fade {
+  animation-name: fade-in;
+}
+.js .seq.is-visible .seq-item.seq-grow {
+  animation-name: grow-y;
+  transform-origin: bottom;
+  opacity: 1;
+}
+
+/* Reading highlight inside mockups (Feature 2) and a dimming item. */
+.js .seq.is-visible .seq-item.seq-hl {
+  animation-name: hl-on;
+  animation-duration: 180ms;
+  opacity: 1;
+}
+.js .seq.is-visible .seq-item.seq-dim {
+  animation-name: fade-dim;
+  animation-duration: 400ms;
+  opacity: 1;
+}
+.seq-hl {
+  border-radius: 4px;
+  padding: 1px 4px;
+  margin: -1px -4px;
+}
+
+/* One hover rule for inner UI cards (desktop pointers only). */
+@media (hover: hover) {
+  .inner-card {
+    transition: transform 160ms var(--ease-out), background-color 160ms;
+  }
+  .inner-card:hover {
+    transform: translateY(-2px);
+    background-color: #232326;
+  }
+}
+
+/* Reveal children land one beat after each other inside a revealed card. */
+.js .is-visible .reveal-child {
+  transition-delay: calc(var(--i, 0) * 60ms);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .js .seq .seq-item,
+  .js .seq.is-visible .seq-item {
+    opacity: 1;
+    animation: none;
+    transform: none;
+  }
+  .motion-loop {
+    animation: none !important;
+  }
 }

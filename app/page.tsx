@@ -6,36 +6,10 @@ import FeatureGrid from "@/components/FeatureGrid";
 import Ticker from "@/components/Ticker";
 import Footer from "@/components/Footer";
 import JoinBetaButton from "@/components/JoinBetaButton";
+import Barcode from "@/components/kit/Barcode";
+import CtaObject from "@/components/mock/CtaObject";
 
 const BristolMap = dynamic(() => import("@/components/BristolMap"), { ssr: false });
-
-function Phone({
-  src,
-  alt,
-  width,
-  rotate = 0,
-}: {
-  src: string;
-  alt: string;
-  width: number;
-  rotate?: number;
-}) {
-  return (
-    // eslint-disable-next-line @next/next/no-img-element
-    <img
-      src={src}
-      alt={alt}
-      draggable={false}
-      style={{
-        width,
-        height: "auto",
-        display: "block",
-        transform: rotate ? `rotate(${rotate}deg)` : undefined,
-        filter: "drop-shadow(0 30px 50px rgba(0,0,0,0.7))",
-      }}
-    />
-  );
-}
 
 export default function HomePage() {
   return (
@@ -46,7 +20,7 @@ export default function HomePage() {
         <Ticker />
         <FeatureGrid />
 
-        {/* ── Final download CTA ── */}
+        {/* ── Final download CTA: the stub you keep ── */}
         <section className="px-3 pt-28 sm:px-4 sm:pt-40">
           <div className="reveal relative overflow-hidden rounded-card bg-scene-surface ring-1 ring-white/5">
             <BristolMap />
@@ -57,11 +31,37 @@ export default function HomePage() {
               style={{
                 zIndex: 1,
                 background:
-                  "linear-gradient(to bottom, #121214 0%, rgba(18,18,20,0.75) 45%, rgba(18,18,20,0.35) 100%)",
+                  "linear-gradient(to bottom, #121214 0%, rgba(18,18,20,0.85) 38%, rgba(18,18,20,0.45) 70%, rgba(18,18,20,0.25) 100%)",
               }}
             />
 
-            <div className="relative flex flex-col items-center px-6 pt-16 text-center sm:pt-24" style={{ zIndex: 2 }}>
+            {/* Tear line: two notches bitten out of the card edges and a perforation between them */}
+            <div aria-hidden="true" className="pointer-events-none absolute inset-x-0 top-[84px] sm:top-[96px]" style={{ zIndex: 2 }}>
+              <span className="absolute -left-[18px] -top-[18px] size-9 rounded-full bg-black" />
+              <span className="absolute -right-[18px] -top-[18px] size-9 rounded-full bg-black" />
+              <span
+                className="absolute left-[26px] right-[26px] top-0 h-px"
+                style={{
+                  background:
+                    "repeating-linear-gradient(90deg, rgba(255,255,255,0.16) 0 4px, transparent 4px 9px)",
+                }}
+              />
+            </div>
+
+            {/* Stub header: quiet, like the print on a ticket */}
+            <div
+              aria-hidden="true"
+              className="pointer-events-none absolute inset-x-0 top-0 flex h-[84px] items-center justify-between px-8 sm:h-[96px] sm:px-11"
+              style={{ zIndex: 2 }}
+            >
+              <span className="text-[10px] font-semibold uppercase tracking-[0.3em] text-[#3a3a3c]">Admit one</span>
+              <span className="flex flex-col items-end gap-1 text-[#3a3a3c]">
+                <Barcode width={120} height={22} color="currentColor" opacity={0.9} />
+                <span className="font-mono text-[9px] tracking-[0.12em]">Nº 0001</span>
+              </span>
+            </div>
+
+            <div className="relative flex flex-col items-center px-6 pb-0 pt-32 text-center sm:pt-44" style={{ zIndex: 2 }}>
               <span className="flex size-20 items-center justify-center rounded-[22px] bg-scene-surface-2 ring-1 ring-white/10 shadow-[0_16px_40px_-16px_rgba(0,0,0,0.8)]">
                 <Image src="/scene-logo.svg" alt="" width={38} height={42} />
               </span>
@@ -78,24 +78,7 @@ export default function HomePage() {
                 className="btn btn-primary mt-9 h-14 px-8 text-[17px]"
               />
 
-              {/* Three phones fanned out and cropped at the bottom edge */}
-              <div
-                className="relative mt-14 flex w-full items-start justify-center sm:mt-20"
-                style={{ height: 470, overflow: "hidden" }}
-                aria-hidden="true"
-              >
-                <div className="relative" style={{ width: 760, maxWidth: "140vw" }}>
-                  <div className="absolute left-1/2" style={{ top: 60, marginLeft: -340, transform: "rotate(-8deg)", opacity: 0.85 }}>
-                    <Phone src="/screenshots/profile.png" alt="" width={230} />
-                  </div>
-                  <div className="absolute left-1/2" style={{ top: 60, marginLeft: 110, transform: "rotate(8deg)", opacity: 0.85 }}>
-                    <Phone src="/screenshots/add-gig.png" alt="" width={230} />
-                  </div>
-                  <div className="absolute left-1/2" style={{ top: 0, marginLeft: -135, zIndex: 1 }}>
-                    <Phone src="/screenshots/home.png" alt="" width={270} />
-                  </div>
-                </div>
-              </div>
+              <CtaObject />
             </div>
           </div>
         </section>

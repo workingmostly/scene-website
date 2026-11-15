@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Inter, Inter_Tight } from "next/font/google";
+import localFont from "next/font/local";
 import "./globals.css";
 import RevealObserver from "@/components/RevealObserver";
 
@@ -13,6 +14,12 @@ const interTight = Inter_Tight({
   subsets: ["latin"],
   weight: ["500", "600"],
   variable: "--font-inter-tight",
+  display: "swap",
+});
+
+const geistMono = localFont({
+  src: "./fonts/GeistMonoVF.woff",
+  variable: "--font-geist-mono",
   display: "swap",
 });
 
@@ -55,7 +62,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${inter.variable} ${interTight.variable}`}
+      className={`${inter.variable} ${interTight.variable} ${geistMono.variable}`}
       suppressHydrationWarning
     >
       <body className="font-sans bg-scene-bg text-white antialiased">

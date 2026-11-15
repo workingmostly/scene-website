@@ -21,7 +21,7 @@ function StarRating({ rating }: { rating: number }) {
           key={i}
           viewBox="0 0 24 24"
           className={`w-2.5 h-2.5 flex-shrink-0 ${
-            i <= rating ? "fill-amber-400" : "fill-[#2C2C2E]"
+            i <= rating ? "fill-[#FFD300]" : "fill-[#2C2C2E]"
           }`}
           aria-hidden="true"
         >
