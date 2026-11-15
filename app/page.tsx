@@ -60,15 +60,6 @@ export default function HomePage() {
                   "linear-gradient(to bottom, #121214 0%, rgba(18,18,20,0.75) 45%, rgba(18,18,20,0.35) 100%)",
               }}
             />
-            <div
-              aria-hidden="true"
-              className="pointer-events-none absolute inset-0"
-              style={{
-                zIndex: 1,
-                background:
-                  "radial-gradient(ellipse 50% 40% at 50% 100%, rgba(255,211,0,0.10) 0%, transparent 70%)",
-              }}
-            />
 
             <div className="relative flex flex-col items-center px-6 pt-16 text-center sm:pt-24" style={{ zIndex: 2 }}>
               <span className="flex size-20 items-center justify-center rounded-[22px] bg-scene-surface-2 ring-1 ring-white/10 shadow-[0_16px_40px_-16px_rgba(0,0,0,0.8)]">
@@ -90,14 +81,14 @@ export default function HomePage() {
               {/* Three phones fanned out and cropped at the bottom edge */}
               <div
                 className="relative mt-14 flex w-full items-start justify-center sm:mt-20"
-                style={{ height: 300, overflow: "hidden" }}
+                style={{ height: 470, overflow: "hidden" }}
                 aria-hidden="true"
               >
                 <div className="relative" style={{ width: 760, maxWidth: "140vw" }}>
-                  <div className="absolute left-1/2" style={{ top: 70, marginLeft: -330, transform: "rotate(-9deg)", opacity: 0.85 }}>
+                  <div className="absolute left-1/2" style={{ top: 60, marginLeft: -340, transform: "rotate(-8deg)", opacity: 0.85 }}>
                     <Phone src="/screenshots/profile.png" alt="" width={230} />
                   </div>
-                  <div className="absolute left-1/2" style={{ top: 70, marginLeft: 100, transform: "rotate(9deg)", opacity: 0.85 }}>
+                  <div className="absolute left-1/2" style={{ top: 60, marginLeft: 110, transform: "rotate(8deg)", opacity: 0.85 }}>
                     <Phone src="/screenshots/add-gig.png" alt="" width={230} />
                   </div>
                   <div className="absolute left-1/2" style={{ top: 0, marginLeft: -135, zIndex: 1 }}>

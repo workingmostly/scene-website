@@ -68,9 +68,9 @@ export default function Nav() {
     >
       <div className="mx-auto max-w-6xl lg:px-[26px]">
         <nav className="nav-bar relative z-0" aria-label="Main">
-          <div className="flex h-16 items-center pl-3.5 pr-2">
+          <div className="nav-clip flex h-16 items-center pl-3.5 pr-2">
             {/* Logo */}
-            <div className="flex flex-1">
+            <div className="nav-start flex">
               <Link
                 href="/"
                 className="flex items-center gap-2.5 rounded-full pr-2 hover:opacity-80 transition-opacity"
@@ -89,7 +89,7 @@ export default function Nav() {
             </div>
 
             {/* Links */}
-            <div className="hidden shrink-0 items-center gap-6 whitespace-nowrap text-[15px] text-white/70 md:flex lg:gap-9">
+            <div className="nav-links hidden shrink-0 items-center gap-6 whitespace-nowrap text-[15px] text-white/70 md:flex lg:gap-9">
               <a href="/#features" className="transition-colors hover:text-white">
                 What is it?
               </a>
@@ -99,11 +99,9 @@ export default function Nav() {
             </div>
 
             {/* CTA */}
-            <div className="flex flex-1 justify-end">
+            <div className="nav-end flex justify-end">
               <div className="nav-cta-slot">
-                <div>
-                  <JoinBetaButton className="nav-cta btn btn-primary ml-[18px] h-12 px-6 text-[15px]" />
-                </div>
+                <JoinBetaButton className="nav-cta btn btn-primary ml-[18px] h-12 px-6 text-[15px]" />
               </div>
             </div>
           </div>

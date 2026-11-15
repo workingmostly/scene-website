@@ -75,7 +75,7 @@ export default function FeatureGrid() {
               {lead.description}
             </p>
           </div>
-          <div className="relative flex items-start justify-center px-6 pt-8 sm:px-10 sm:pt-12 md:pt-14">
+          <div className="relative flex items-start justify-center px-6 pt-8 sm:px-10 sm:pt-12">
             <div
               aria-hidden="true"
               className="pointer-events-none absolute inset-0"
@@ -84,14 +84,14 @@ export default function FeatureGrid() {
                   "radial-gradient(ellipse 60% 50% at 50% 70%, rgba(255,255,255,0.05) 0%, transparent 70%)",
               }}
             />
-            <div className="relative -mb-24 sm:-mb-32" style={{ maxHeight: 420, overflow: "hidden" }}>
-              <Phone src={lead.screenshot} alt={lead.alt} width={300} rotate={-3} />
+            <div className="relative" style={{ height: 470, overflow: "hidden" }}>
+              <Phone src={lead.screenshot} alt={lead.alt} width={280} />
             </div>
           </div>
         </article>
 
         {/* ── Two stacked cards: text on top, phone below ── */}
-        {rest.map((f, i) => (
+        {rest.map((f) => (
           <article
             key={f.tag}
             className="reveal flex flex-col overflow-hidden rounded-card bg-scene-surface"
@@ -114,8 +114,8 @@ export default function FeatureGrid() {
                     "radial-gradient(ellipse 60% 50% at 50% 80%, rgba(255,255,255,0.05) 0%, transparent 70%)",
                 }}
               />
-              <div className="relative" style={{ height: 380, overflow: "hidden" }}>
-                <Phone src={f.screenshot} alt={f.alt} width={280} rotate={i === 0 ? 2 : -2} />
+              <div className="relative" style={{ height: 450, overflow: "hidden" }}>
+                <Phone src={f.screenshot} alt={f.alt} width={270} />
               </div>
             </div>
           </article>

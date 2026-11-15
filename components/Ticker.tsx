@@ -132,31 +132,24 @@ export default function Ticker() {
   const items = [...VENUES, ...VENUES];
 
   return (
-    <section className="py-14 sm:py-20" aria-label="Venues">
+    <div
+      className="my-10 border-y border-scene-border py-4 overflow-hidden select-none sm:my-14"
+      style={{ background: "#080808", cursor: grabbing ? "grabbing" : "grab" }}
+      onMouseDown={onPointerDown}
+      onTouchStart={onPointerDown}
+    >
       <div
-        className="overflow-hidden select-none [mask-image:linear-gradient(to_right,transparent,black_12%,black_88%,transparent)]"
-        style={{ cursor: grabbing ? "grabbing" : "grab" }}
-        onMouseDown={onPointerDown}
-        onTouchStart={onPointerDown}
+        ref={trackRef}
+        className="flex whitespace-nowrap"
+        style={{ width: "max-content", willChange: "transform" }}
       >
-        <div
-          ref={trackRef}
-          className="flex whitespace-nowrap"
-          style={{ width: "max-content", willChange: "transform" }}
-        >
-          {items.map((venue, i) => (
-            <span key={i} className="inline-flex items-center flex-shrink-0">
-              <span className="font-display text-[1.75rem] font-medium tracking-[-0.03em] text-white/30 sm:text-4xl">
-                {venue}
-              </span>
-              <span
-                aria-hidden="true"
-                className="mx-8 inline-block h-1.5 w-1.5 rounded-full bg-white/15 sm:mx-12"
-              />
-            </span>
-          ))}
-        </div>
+        {items.map((venue, i) => (
+          <span key={i} className="inline-flex items-center flex-shrink-0">
+            <span className="text-scene-muted text-sm font-medium px-6">{venue}</span>
+            <span className="text-scene-separator select-none">·</span>
+          </span>
+        ))}
       </div>
-    </section>
+    </div>
   );
 }
